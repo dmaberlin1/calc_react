@@ -1,17 +1,30 @@
 import './App.css';
-import Numbers from "./components/Numbers";
 import {useState} from "react";
-import {Box, Button} from "@chakra-ui/react";
-import CountButton from "./components/CountButton";
-import InputCalc from "./components/InputCalc";
+import {Box} from "@chakra-ui/react";
 import Calc from "./components/Calc";
-import {HamburgerIcon} from "@chakra-ui/icons";
+import Menu from "./UI/Menu";
 
 function App() {
+    const [mode, setMode] = useState('Calculator');
+    let application;
+
+    // function changeAppType() {
+    //     mode==='Calculator'? setMode('Converter'):setMode('Calculator')
+    // }
+
+    switch (mode) {
+        case 'Calculator':application=<Calc/>
+            break;
+        case 'Converter':application =<Converter/>
+            break;
+        default:
+            application=<Calc/>
+    }
+
     return (
         <Box h={'90vh'}>
-            <HamburgerIcon w={'45px'} h={'45px'} p={'5px'} m={'5px'} borderRadius={'5px'}/>
-            <Calc/>
+            <Menu setMode={setMode} />
+            {application}
         </Box>
     );
 }
