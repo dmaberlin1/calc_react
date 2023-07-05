@@ -1,16 +1,17 @@
 import './App.css';
 import {useState} from "react";
-import {Box} from "@chakra-ui/react";
+import {Flex} from "@chakra-ui/react";
 import Calc from "./components/Calc";
-import Menu from "./UI/Menu";
+import MainMenu from "./UI/MainMenu";
+import {useSelector} from "react-redux";
+import {historyState} from "./slice/historySlice";
+import Converter from "./components/Converter";
+import {Route, Routes} from "react-router-dom";
 
 function App() {
     const [mode, setMode] = useState('Calculator');
+    const history=useSelector(historyState)
     let application;
-
-    // function changeAppType() {
-    //     mode==='Calculator'? setMode('Converter'):setMode('Calculator')
-    // }
 
     switch (mode) {
         case 'Calculator':application=<Calc/>
@@ -22,10 +23,18 @@ function App() {
     }
 
     return (
-        <Box h={'90vh'}>
-            <Menu setMode={setMode} />
-            {application}
-        </Box>
+        <Flex flexDirection={'column'} justifyContent={'space-between'} h={'90%'} maxWidth={'400px'}
+        w={'100%'}>
+            <Flex gap={'10px'} color={'tomato'}>{history}</Flex>
+            <MainMenu setMode={setMode} />
+            {/*{application}*/}
+
+            <Routes>
+                <Route path={'/'} element={<Calc/>}/>
+                <Route path='converter' element={<Converter/>}></Route>
+                <Route path={'calculator'} element={<Calc/>}></Route>
+            </Routes>
+        </Flex>
     );
 }
 

@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
 import {ChakraProvider, extendTheme} from "@chakra-ui/react";
+import {Provider} from "react-redux";
+import './index.css';
+import {BrowserRouter} from "react-router-dom";
+
 
 const theme=extendTheme({
     colors:{
@@ -14,9 +17,13 @@ const theme=extendTheme({
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <ChakraProvider theme={theme}>
-            <App/>
-        </ChakraProvider>
+        <BrowserRouter>
+     <Provider store={store}>
+         <ChakraProvider theme={theme}>
+             <App/>
+         </ChakraProvider>
+     </Provider>
+        </BrowserRouter>
     </React.StrictMode>
 );
 
